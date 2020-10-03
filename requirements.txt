@@ -1,5 +1,5 @@
 Flask==1.1.2
-gunicorn==1.19.2
+gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
