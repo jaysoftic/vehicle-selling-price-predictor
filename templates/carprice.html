@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Selling Price Prediction</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="{{ url_for('static', filename='car.ico') }}" type="image/x-icon">
+</head>
+<body style = "background-image: url({{ url_for('static', filename='car_price_prediction.jpg') }}); background-repeat: no-repeat;
+background-size: 1600px 980px;">
+
+    <div class="container">
+        <br><br>
+        <div class="card" style="background-color:#e7e6e5">
+            <div class="card-header">
+                <div style="background-color:white">
+                    <br>
+                    <h2 class="ml-5" style="color:red"><img src="{{ url_for('static', filename='car.png') }}">&nbsp&nbsp<b>Vehicle Selling Price Prediction</b></h2>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Select Vehicle:</b></label>
+                        </div>
+                        <div class='col-sm-5'>
+                            <select id="vehicle" onchange="vechicle_change()" name="vehicle" class="form-control " style="width:300px">
+                                {% for v in vehicle %}
+                               <option value="{{ v }}">{{ v.title() }}</option>
+                                {% endfor %}
+                                <option value="800">800</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <br>      
+                    <script type = "text/javascript">
+                        function vechicle_change(){
+                            var vehicleObj = document.getElementById("vehicle");
+                            var vehicle = vehicleObj.options[vehicleObj.selectedIndex].value;
+
+                            var imageNameDisplay = document.getElementById("imageName")
+
+                            imageNameDisplay.innerHTML = "<h1>" + vehicle + "</h1>"
+
+                            var imagename = vehicle + ".jpg";
+
+                            var coverDiv = document.getElementById("imageCover")
+
+                            coverDiv.innerHTML = '<img class="card-img-top z-depth-2" src="static/vehicle images/' + imagename + '" alt="Card image cap" height="180" width="500"><br><br>'
+
+                        }
+                    </script>
+
+                    <div class="row ml-2">
+
+                        <div class="col-sm-4" id = "imageName">
+
+                        </div>
+                    
+                        <div class="col-sm-6" id = "imageCover">
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Purchased Year: </b></label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="year" type="number" name="year" placeholder="Enter Purchased Year" class="form-control" style="width:300px">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Show room price(lakh): </b></label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="show_room_price" type="number" name="show_room_price" placeholder="Enter Show Room Price" class="form-control" style="width:300px" min = "0" step="0.01">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>How many Kilometers Drived?: </b></label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="kilometers" type="number" name="kilometers" placeholder="Enter Kilometer" class="form-control" style="width:300px" min = "0">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>How much owners previously had the car?: </b></label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle col-sm-5" data-toggle="buttons" >
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="owner" id="owner0" value="0" autocomplete="off"> 0
+                            </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="owner" id="owner1" value="1" autocomplete="off"> 1
+                            </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="owner" id="owner3" value="3" autocomplete="off"> 3
+                            </b></label>
+                          </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>What is Fuel Type?: </b></label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle col-sm-5" data-toggle="buttons" >
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="fuel" id="petrol" value="petrol" autocomplete="off"> Petrol
+                            </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="fuel" id="diesel" value="diesel" autocomplete="off"> Diesel
+                            </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="fuel" id="CNG" value="CNG" autocomplete="off"> CNG
+                            </b></label>
+                          </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Are you a Dealer or Individual?: </b></label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle col-sm-5" data-toggle="buttons" >
+                            <label class="btn btn-outline-dark">
+                                <input type="radio" name="seller" id="dealer" value="dealer" autocomplete="off"> Dealer
+                              </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="seller" id="individual" value="individual" autocomplete="off"> Individual
+                            </b></label>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Transmission Type: </b></label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle col-sm-5" data-toggle="buttons" >
+                            <label class="btn btn-outline-dark">
+                                <input type="radio" name="transmission" id="manual" value="manual" autocomplete="off"> Manual
+                              </b></label>
+                            <label class="btn btn-outline-dark">
+                              <input type="radio" name="transmission" id="automatic" value="automatic" autocomplete="off"> Automatic
+                            </b></label>
+                        </div>
+                        
+                    </div>
+                    <br>
+                    
+                    <div class="row ml-2">
+                        <div class="col-sm-5">
+                            <label><b>Estimated Price: </b></label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="result" type="text" name="display_name" placeholder="Estimated Price" class="form-control" style="width:300px" disabled>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row ml-2">
+                        <div class="col-sm-10">
+                        <center> <button onclick="onClicked()" class = "btn btn-danger" id="btn">Estimate Price</button> </center>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <br>
+                    <center>
+                      <a href="https://github.com/jaysoftic" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a>&nbsp&nbsp&nbsp&nbsp
+                      <a href="https://www.linkedin.com/in/jaysoftic/" target="_blank"><i class="fa fa-linkedin-square" style="font-size:24px"></i></i></a>
+                      <label class = "float-right">made by jaysoftic</label>
+                    </center>
+                    
+            </div>
+
+              
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function onClicked(){
+            var vehicleObj = document.getElementById("vehicle");
+            var vehicle = vehicleObj.options[vehicleObj.selectedIndex].value;
+            var year = document.getElementById("year").value;
+            var show_room_price = document.getElementById("show_room_price").value;
+            var kilometers = document.getElementById("kilometers").value;
+            
+            var owner = $("input[type='radio'][name='owner']:checked").val();
+            var fuel = $("input[type='radio'][name='fuel']:checked").val();
+            var seller = $("input[type='radio'][name='seller']:checked").val();
+            var transmission = $("input[type='radio'][name='transmission']:checked").val();
+
+            
+
+            $.post("estimatedResult", {
+                year: year,
+                show_room_price: show_room_price,
+                kilometers: kilometers,
+                owner: owner,
+                fuel: fuel,
+                seller: seller,
+                transmission: transmission,
+                vehicle: vehicle
+            }, function(data, status){
+                document.getElementById("result").value = data;
+            })
+        }
+    </script>
+
+</body>
+</html>
